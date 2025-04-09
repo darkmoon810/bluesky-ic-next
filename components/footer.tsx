@@ -1,117 +1,144 @@
-import Link from "next/link"
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react"
+import type { FC } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Button } from "./ui/button"
+import { Separator } from "./ui/separator"
 
-export default function Footer() {
+type ContactInfo = {
+  icon: string
+  text: string
+  alt: string
+}
+
+type SocialIcon = {
+  src: string
+  alt: string
+}
+
+const contactInfo: ContactInfo[] = [
+  {
+    icon: "/building-05.svg",
+    text: "161 Bay St Toronto, Ontario, M5J 2S1 Canada",
+    alt: "Office Location"
+  },
+  { 
+    icon: "/phone.svg", 
+    text: "416-930-5550",
+    alt: "Phone"
+  },
+  { 
+    icon: "/mail-01.svg", 
+    text: "contact@blueskyic.com",
+    alt: "Email"
+  },
+]
+
+const socialIcons: SocialIcon[] = [
+  { src: "/social-icon.svg", alt: "Social icon" },
+  { src: "/social-icon-2.svg", alt: "Social icon" },
+  { src: "/social-icon-1.svg", alt: "Social icon" },
+]
+
+export const Footer: FC = () => {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Financial Services</h3>
-            <p className="mb-4 text-gray-400">
-              Professional financial planning and wealth management services to help you achieve your financial goals.
-            </p>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-gray-400 hover:text-white">
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
+    <footer className="flex flex-col items-center gap-16 pt-16 pb-12 px-4 md:px-0 relative self-stretch w-full bg-[#0c111d]">
+      <div className="flex flex-col items-start gap-12 max-w-screen-xl px-4 md:px-8 py-0 relative w-full">
+        <div className="flex flex-col md:flex-row items-start gap-8 self-stretch w-full">
+          {/* Company Info */}
+          <div className="flex flex-col items-start gap-8 relative flex-1 grow">
+            <div className="flex flex-col w-full md:w-[640px] items-start gap-8 relative">
+              {/* Logo */}
+              <div className="relative w-[156.97px] h-10">
+                <Image
+                  src="/frame-2.svg"
+                  alt="BlueSky Logo"
+                  width={39}
+                  height={40}
+                  className="absolute top-0 left-0"
+                />
+                <div className="absolute w-[100px] h-9 top-[3px] left-[49px]">
+                  <div className="absolute top-0 left-0 font-serif font-normal text-white text-[28px] text-center tracking-[0] leading-7 whitespace-nowrap">
+                    BlueSky
+                  </div>
+                  <div className="absolute top-[25px] left-0 font-medium text-white text-[9px] text-center tracking-[-0.18px] leading-[normal]">
+                    Investment Counsel
+                  </div>
+                </div>
+              </div>
+              <p className="self-stretch text-white text-[length:var(--text-md-regular-font-size)] leading-[var(--text-md-regular-line-height)] font-text-md-regular tracking-[var(--text-md-regular-letter-spacing)]">
+                BlueSky Investment Counsel Inc. is an independent,
+                discretionary portfolio management firm based in Toronto,
+                Ontario.
+              </p>
             </div>
           </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <Link href="/" className="hover:text-white">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-white">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-white">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/insights" className="hover:text-white">
-                  Insights
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-white">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/seminar-registration" className="hover:text-white">
-                  Seminar Registration
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Services</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <Link href="/services#financial-planning" className="hover:text-white">
-                  Financial Planning
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#wealth-management" className="hover:text-white">
-                  Wealth Management
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#retirement-planning" className="hover:text-white">
-                  Retirement Planning
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#investment-strategies" className="hover:text-white">
-                  Investment Strategies
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Contact Us</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li className="flex items-start">
-                <MapPin className="mr-2 h-5 w-5 shrink-0" />
-                <span>123 Financial Street, New York, NY 10001</span>
-              </li>
-              <li className="flex items-center">
-                <Phone className="mr-2 h-5 w-5" />
-                <span>(123) 456-7890</span>
-              </li>
-              <li className="flex items-center">
-                <Mail className="mr-2 h-5 w-5" />
-                <span>info@financialservices.com</span>
-              </li>
-            </ul>
+
+          {/* Contact Information */}
+          <div className="flex flex-col w-full md:w-[300px] items-start gap-4 relative">
+            <h3 className="relative self-stretch mt-[-1.00px] font-bold text-white text-base tracking-[0] leading-6">
+              Contact Us
+            </h3>
+
+            {contactInfo.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 relative self-stretch w-full"
+              >
+                <Image
+                  src={item.icon}
+                  alt={item.alt}
+                  width={24}
+                  height={24}
+                  className="relative"
+                />
+                <p className="relative flex-1 mt-[-1.00px] font-text-md-regular text-white text-[length:var(--text-md-regular-font-size)] tracking-[var(--text-md-regular-letter-spacing)] leading-[var(--text-md-regular-line-height)]">
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="mt-12 border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Financial Services. All rights reserved.</p>
+      </div>
+
+      {/* Footer Bottom */}
+      <div className="flex flex-col max-w-screen-xl items-start gap-8 px-4 md:px-8 py-0 relative w-full">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-[24px_32px] pt-8 pb-0 px-0 self-stretch w-full border-t border-[#5d6780]">
+          <p className="relative w-fit mt-[-1.00px] font-text-md-regular text-white text-center md:text-left text-[length:var(--text-md-regular-font-size)] tracking-[var(--text-md-regular-letter-spacing)] leading-[var(--text-md-regular-line-height)] whitespace-normal md:whitespace-nowrap">
+            © {new Date().getFullYear()} BlueSky Investment Counsel, Inc. All rights reserved.
+          </p>
+
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+            <div className="flex items-center gap-4 md:gap-6">
+              <Link href="/terms" passHref>
+                <Button variant="link" className="text-white p-0 h-auto">
+                  Terms of Use
+                </Button>
+              </Link>
+              <Link href="/privacy" passHref>
+                <Button variant="link" className="text-white p-0 h-auto">
+                  Privacy Policy
+                </Button>
+              </Link>
+            </div>
+            <Separator className="hidden md:block h-6 bg-white" orientation="vertical" />
+            <div className="flex items-center gap-6">
+              {socialIcons.map((icon, index) => (
+                <Image
+                  key={index}
+                  src={icon.src}
+                  alt={icon.alt}
+                  width={24}
+                  height={24}
+                  className="relative"
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </footer>
   )
 }
+
+// Add a default export
+export default Footer
