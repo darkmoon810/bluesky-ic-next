@@ -1,0 +1,12 @@
+{
+  "registrations": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "416-555-0123",
+      "seminarDate": "2024-05-01",
+      "status": "confirmed"
+    }
+  ]
+}
