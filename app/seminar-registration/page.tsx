@@ -1,239 +1,191 @@
-"use client"
+import {
+  CalendarIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  MapPinIcon,
+} from "lucide-react";
+import { Button } from "../../components/ui/button";
+import { Card, CardContent } from "../../components/ui/card";
+import { Input } from "../../components/ui/input";
+import { Separator } from "../../components/ui/separator";
 
-import type React from "react"
+// What you'll learn items
+const learningPoints = [
+  "Advanced portfolio management techniques",
+  "Market insights and investment opportunities",
+  "Risk mitigation strategies tailored for you",
+];
 
-import { useState } from "react"
-import { Calendar, Clock, MapPin, Users, CheckCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { useToast } from "@/hooks/use-toast"
+// Event details
+const eventDetails = [
+  {
+    icon: <CalendarIcon className="w-6 h-6" />,
+    title: "Wednesday, April 17, 2025",
+  },
+  {
+    icon: <ClockIcon className="w-6 h-6" />,
+    title: "6:00 PM - 7:30 PM EST",
+  },
+  {
+    icon: <MapPinIcon className="w-6 h-6" />,
+    title: "161 Bay St Toronto, Ontario, M5J 2S1 Canada",
+  },
+];
 
 export default function SeminarRegistration() {
-  const { toast } = useToast()
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    session: "morning",
-    dietaryRestrictions: "",
-    agreeToTerms: false,
-  })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target
-    setFormData((prev) => ({ ...prev, [name]: checked }))
-  }
-
-  const handleRadioChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, session: value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Here you would typically send the form data to your backend
-    console.log("Registration submitted:", formData)
-
-    // Show success toast
-    toast({
-      title: "Registration Successful",
-      description: "Thank you for registering for our seminar. We look forward to seeing you!",
-    })
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      session: "morning",
-      dietaryRestrictions: "",
-      agreeToTerms: false,
-    })
-  }
 
   return (
-    <div>
-      <section className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-6 text-4xl font-bold">Seminar Registration</h1>
-            <p className="text-lg text-gray-600">
-              Join our upcoming financial planning seminar to learn strategies for building and preserving wealth.
-            </p>
+    <div className="flex flex-col items-start relative w-full">
+
+      <div className="flex flex-col items-center gap-16 px-4 sm:px-0 py-12 sm:py-20 relative self-stretch w-full bg-white">
+        <div className="flex-col items-center gap-8 flex max-w-screen-xl px-4 sm:px-8 py-0 relative w-full">
+          <div className="flex-col items-center gap-12 self-stretch w-full flex relative">
+            <div className="flex flex-col items-center gap-6 relative self-stretch w-full">
+              <h1 className="relative w-full sm:w-[900px] mt-[-1.00px] [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-3xl sm:text-5xl lg:text-[64px] text-center tracking-[-1.28px] leading-tight sm:leading-[72px]">
+                Register for our exclusive wealth management seminar
+              </h1> 
+
+              <p className="w-full sm:w-[900px] font-text-xl-regular text-[#475467] text-center text-base sm:text-xl">
+                Take control of your financial future with expert-led
+                discussions on investment management.
+              </p>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid gap-12 md:grid-cols-2">
-            <div>
-              <h2 className="mb-6 text-2xl font-bold">Event Details</h2>
-              <div className="rounded-lg border p-6 shadow-sm">
-                <h3 className="mb-4 text-xl font-semibold">Financial Freedom: Building Wealth That Lasts</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <Calendar className="mr-3 h-5 w-5 text-gray-700" />
-                    <div>
-                      <h4 className="font-medium">Date</h4>
-                      <p className="text-gray-600">June 15, 2023</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Clock className="mr-3 h-5 w-5 text-gray-700" />
-                    <div>
-                      <h4 className="font-medium">Time</h4>
-                      <p className="text-gray-600">Morning Session: 9:00 AM - 12:00 PM</p>
-                      <p className="text-gray-600">Afternoon Session: 2:00 PM - 5:00 PM</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <MapPin className="mr-3 h-5 w-5 text-gray-700" />
-                    <div>
-                      <h4 className="font-medium">Location</h4>
-                      <p className="text-gray-600">Financial Services Conference Center</p>
-                      <p className="text-gray-600">123 Financial Street, New York, NY 10001</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Users className="mr-3 h-5 w-5 text-gray-700" />
-                    <div>
-                      <h4 className="font-medium">Capacity</h4>
-                      <p className="text-gray-600">Limited to 50 attendees per session</p>
-                    </div>
+      <div className="flex flex-col items-center gap-16 px-4 sm:px-0 py-12 sm:py-20 relative self-stretch w-full bg-white">
+        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-24 max-w-screen-xl px-4 sm:px-8 py-0 relative w-full">
+          <div className="flex flex-col items-start gap-8 relative flex-1 grow">
+            <div className="flex flex-col items-start gap-3 relative self-stretch w-full">
+              <h2 className="relative self-stretch mt-[-1.00px] [font-family:'DM_Serif_Text',Helvetica] font-normal text-4xl sm:text-5xl tracking-[-0.96px] leading-[52px]">
+                <span className="text-[#101828] tracking-[-0.46px]">
+                  What you&apos;ll{" "}
+                </span>
+                <span className="text-[#00359e] tracking-[-0.46px]">learn</span>
+              </h2>
+            </div>
+
+            <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
+              {learningPoints.map((point, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 relative self-stretch w-full"
+                >
+                  <CheckCircleIcon className="w-6 h-6 text-[#00359e] flex-shrink-0" />
+                  <div className="relative flex-1 mt-[-1.00px] font-text-xl-regular text-[#475467] text-base sm:text-xl">
+                    {point}
                   </div>
                 </div>
+              ))}
+            </div>
+
+            <Separator className="bg-[#eaecf0]" />
+
+            <div className="flex flex-col items-start gap-3 relative self-stretch w-full">
+              <h2 className="relative self-stretch mt-[-1.00px] [font-family:'DM_Serif_Text',Helvetica] font-normal text-4xl sm:text-5xl tracking-[-0.96px] leading-[52px]">
+                <span className="text-[#00359e] tracking-[-0.46px]">Date</span>
+                <span className="text-[#101828] tracking-[-0.46px]">
+                  {" "}
+                  and time
+                </span>
+              </h2>
+            </div>
+
+            <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
+              <div className="flex flex-col sm:flex-row items-start gap-6 relative self-stretch w-full">
+                {eventDetails.slice(0, 2).map((detail, index) => (
+                  <Card key={index} className="flex-1 w-full bg-gray-50 rounded-2xl">
+                    <CardContent className="flex flex-col items-start justify-center gap-3 p-4">
+                      <div className="relative w-12 h-12 bg-white rounded-[171.43px] shadow-[0px_1px_2px_#1018280d] flex items-center justify-center">
+                        {detail.icon}
+                      </div>
+                      <div className="self-stretch font-semibold text-[#101828] text-lg sm:text-xl leading-7 [font-family:'Inter',Helvetica]">
+                        {detail.title}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
 
-              <h3 className="mb-4 mt-8 text-xl font-semibold">What You'll Learn</h3>
-              <div className="space-y-3">
-                <div className="flex items-start">
-                  <CheckCircle className="mr-3 h-5 w-5 text-gray-700" />
-                  <p className="text-gray-600">Effective retirement planning strategies</p>
-                </div>
-                <div className="flex items-start">
-                  <CheckCircle className="mr-3 h-5 w-5 text-gray-700" />
-                  <p className="text-gray-600">Investment approaches for different life stages</p>
-                </div>
-                <div className="flex items-start">
-                  <CheckCircle className="mr-3 h-5 w-5 text-gray-700" />
-                  <p className="text-gray-600">Tax-efficient wealth building techniques</p>
-                </div>
-                <div className="flex items-start">
-                  <CheckCircle className="mr-3 h-5 w-5 text-gray-700" />
-                  <p className="text-gray-600">Estate planning fundamentals</p>
-                </div>
-                <div className="flex items-start">
-                  <CheckCircle className="mr-3 h-5 w-5 text-gray-700" />
-                  <p className="text-gray-600">Risk management strategies</p>
-                </div>
+              <div className="flex items-start gap-6 relative self-stretch w-full">
+                <Card className="flex-1 bg-gray-50 rounded-2xl">
+                  <CardContent className="flex flex-col items-start justify-center gap-3 p-4">
+                    <div className="relative w-12 h-12 bg-white rounded-[171.43px] shadow-[0px_1px_2px_#1018280d] flex items-center justify-center">
+                      {eventDetails[2].icon}
+                    </div>
+                    <div className="self-stretch font-semibold text-[#101828] text-lg sm:text-xl leading-7 [font-family:'Inter',Helvetica]">
+                      {eventDetails[2].title}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
-            <div>
-              <h2 className="mb-6 text-2xl font-bold">Register Now</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="mb-1 block text-sm font-medium">
-                    Full Name
-                  </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your full name"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="mb-1 block text-sm font-medium">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Your email address"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="mb-1 block text-sm font-medium">
-                    Phone
-                  </label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Your phone number"
-                    required
-                  />
-                </div>
-                <div>
-                  <h3 className="mb-3 text-sm font-medium">Select Session</h3>
-                  <RadioGroup value={formData.session} onValueChange={handleRadioChange}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="morning" id="morning" />
-                      <Label htmlFor="morning">Morning Session (9:00 AM - 12:00 PM)</Label>
+          </div>
+
+          <div className="flex-col items-start gap-12 flex-1 grow flex relative w-full lg:w-auto">
+            <div className="flex flex-col items-start gap-8 relative self-stretch w-full">
+              <div className="flex flex-col items-start gap-6 relative self-stretch w-full">
+                <div className="flex flex-col sm:flex-row items-start gap-8 relative self-stretch w-full">
+                  <div className="flex-col items-start gap-1.5 flex-1 grow flex relative w-full">
+                    <div className="flex flex-col items-start gap-1.5 relative self-stretch w-full">
+                      <label className="font-text-sm-medium text-[#344054]">
+                        First name
+                      </label>
+                      <Input
+                        className="px-3.5 py-2.5 bg-white rounded-lg border border-[#d0d5dd] shadow-shadows-shadow-xs w-full"
+                        placeholder="First name"
+                      />
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="afternoon" id="afternoon" />
-                      <Label htmlFor="afternoon">Afternoon Session (2:00 PM - 5:00 PM)</Label>
+                  </div>
+
+                  <div className="flex-col items-start gap-1.5 flex-1 grow flex relative w-full">
+                    <div className="flex flex-col items-start gap-1.5 relative self-stretch w-full">
+                      <label className="font-text-sm-medium text-[#344054]">
+                        Last name
+                      </label>
+                      <Input
+                        className="px-3.5 py-2.5 bg-white rounded-lg border border-[#d0d5dd] shadow-shadows-shadow-xs w-full"
+                        placeholder="Last name"
+                      />
                     </div>
-                  </RadioGroup>
+                  </div>
                 </div>
-                <div>
-                  <label htmlFor="dietaryRestrictions" className="mb-1 block text-sm font-medium">
-                    Dietary Restrictions (if any)
-                  </label>
-                  <Textarea
-                    id="dietaryRestrictions"
-                    name="dietaryRestrictions"
-                    value={formData.dietaryRestrictions}
-                    onChange={handleChange}
-                    placeholder="Please let us know if you have any dietary restrictions"
-                  />
-                </div>
-                <div className="flex items-start space-x-2">
-                  <Checkbox
-                    id="agreeToTerms"
-                    name="agreeToTerms"
-                    checked={formData.agreeToTerms}
-                    onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, agreeToTerms: checked === true }))}
-                    required
-                  />
-                  <div className="grid gap-1.5 leading-none">
-                    <label
-                      htmlFor="agreeToTerms"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      I agree to the terms and conditions
+
+                <div className="flex flex-col items-start gap-1.5 relative self-stretch w-full">
+                  <div className="flex flex-col items-start gap-1.5 relative self-stretch w-full">
+                    <label className="font-text-sm-medium text-[#344054]">
+                      Email
                     </label>
-                    <p className="text-sm text-gray-500">
-                      By registering, you agree to receive communications about the seminar and related financial
-                      topics.
-                    </p>
+                    <Input
+                      className="px-3.5 py-2.5 bg-white rounded-lg border border-[#d0d5dd] shadow-shadows-shadow-xs w-full"
+                      placeholder="you@company.com"
+                    />
                   </div>
                 </div>
-                <Button type="submit" className="w-full">
-                  Register for Seminar
+
+                <div className="flex flex-col items-start gap-1.5 relative self-stretch w-full">
+                  <div className="flex flex-col items-start gap-1.5 relative self-stretch w-full">
+                    <label className="font-text-sm-medium text-[#344054]">
+                      Phone number
+                    </label>
+                    <Input
+                      className="px-3.5 py-2.5 bg-white rounded-lg border border-[#d0d5dd] shadow-shadows-shadow-xs w-full"
+                      placeholder="+1 (555) 000-0000"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-start gap-4 relative self-stretch w-full">
+                <Button className="w-full bg-[#00359e] text-white rounded-lg py-3">
+                  Register
                 </Button>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
-  )
-}
+  );
+};

@@ -21,7 +21,7 @@ const navItems = [
     ]
   },
   { name: "Contact", path: "/contact", hasDropdown: false },
-  { name: "Insights", path: "/insight", hasDropdown: false },
+  { name: "Insights", path: "/insights", hasDropdown: false },
 ];
 
 export default function Header() {
