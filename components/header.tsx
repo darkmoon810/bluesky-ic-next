@@ -6,6 +6,7 @@ import { Menu, X, ChevronDownIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from './ui/navigation-menu';
+import { usePathname } from "next/navigation"
 
 // Navigation items configuration
 const navItems = [
@@ -26,7 +27,7 @@ const navItems = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -74,7 +75,7 @@ export default function Header() {
                           <div className={`relative ${item.id === 'services' ? 'group' : ''}`}>
                             <button
                               className={`inline-flex items-center gap-1 px-3 py-2 text-[#475467] hover:text-[#00359e] transition-colors
-                                ${location.pathname.includes(item.name.toLowerCase()) ? 'text-[#00359e]' : ''}`}
+                                ${pathname.includes(item.name.toLowerCase()) ? 'text-[#00359e]' : ''}`}
                             >
                               {item.name}
                               <ChevronDownIcon className={`h-5 w-5 transition-transform ${item.id === 'services' ? 'group-hover:rotate-180' : ''}`} />
@@ -91,7 +92,7 @@ export default function Header() {
                                     key={idx}
                                     href={dropItem.path}
                                     className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors first:rounded-t-md last:rounded-b-md
-                                      ${location.pathname === dropItem.path ? 'bg-gray-50 text-[#00359e]' : ''}`}
+                                      ${pathname === dropItem.path ? 'bg-gray-50 text-[#00359e]' : ''}`}
                                   >
                                     {dropItem.name}
                                   </Link>
@@ -102,7 +103,7 @@ export default function Header() {
                         ) : (
                           <Link
                             href={item.path || "/"}
-                            className={`px-3 py-2 text-[#475467] hover:text-[#00359e] transition-colors ${location.pathname === item.path ? 'text-[#00359e]' : ''}`}
+                            className={`px-3 py-2 text-[#475467] hover:text-[#00359e] transition-colors ${pathname === item.path ? 'text-[#00359e]' : ''}`}
                           >
                             {item.name}
                           </Link>
@@ -141,7 +142,7 @@ export default function Header() {
                               href={dropItem.path}
                               onClick={() => setMobileMenuOpen(false)}
                               className={`block px-3 py-2 text-sm text-gray-700 hover:text-[#00359e] transition-colors
-                                ${location.pathname === dropItem.path ? 'text-[#00359e]' : ''}`}
+                                ${pathname === dropItem.path ? 'text-[#00359e]' : ''}`}
                             >
                               {dropItem.name}
                             </Link>
@@ -153,7 +154,7 @@ export default function Header() {
                         href={item.path || "/"}
                         onClick={() => setMobileMenuOpen(false)}
                         className={`block px-3 py-2 text-[#475467] hover:text-[#00359e] transition-colors
-                          ${location.pathname === item.path ? 'text-[#00359e]' : ''}`}
+                          ${pathname === item.path ? 'text-[#00359e]' : ''}`}
                       >
                         {item.name}
                       </Link>
