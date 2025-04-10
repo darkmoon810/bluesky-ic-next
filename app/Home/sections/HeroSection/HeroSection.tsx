@@ -17,7 +17,7 @@ const backgroundImages = [
   { src: "/image-3.png", alt: "Financial district" },
 ] as const
 
-export function HeroSection() {
+export default function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const slideInterval = 5000
 
