@@ -6,6 +6,9 @@ import { ArrowUpRightIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
+import { homeStatics } from "@/lib/Statics/home.static"
+import { theme } from "@/lib/Statics/theme.static"
+
 const blogPosts = [
   {
     id: 1,
@@ -44,6 +47,8 @@ export function ArticlesSection() {
     window.open(link, '_blank', 'noopener,noreferrer')
   }
 
+  const { articles } = homeStatics
+
   return (
     <section className="flex flex-col items-center gap-16 py-20 w-full bg-white">
       {/* Header Section */}
@@ -52,18 +57,18 @@ export function ArticlesSection() {
           <div className="flex flex-col items-start gap-3 flex-1">
             <div className="flex flex-col items-start gap-3 w-full">
               <h2 className="font-['DM_Serif_Text',Helvetica] text-5xl tracking-[-0.96px]">
-                <span className="text-[#101828]">Latest </span>
-                <span className="text-[#00359e]">news & articles</span>
+                <span className={`text-[${theme.colors.secondary}]`}>{articles.title.main} </span>
+                <span className={`text-[${theme.colors.primary}]`}>{articles.title.highlight}</span>
               </h2>
             </div>
-            <p className="self-stretch text-[#475467] text-xl leading-[30px]">
-              The latest news and resources from the expert
+            <p className={`self-stretch text-[${theme.colors.text}] text-xl leading-[30px]`}>
+              {articles.subtitle}
             </p>
           </div>
 
-          <Link href="/insights">
-            <Button className="bg-[#00359e] text-white rounded-lg shadow-shadows-shadow-xs">
-              View all
+          <Link href={articles.viewAllButton.link}>
+            <Button className={`bg-[${theme.colors.primary}] text-white rounded-lg shadow-shadows-shadow-xs`}>
+              {articles.viewAllButton.text}
             </Button>
           </Link>
         </div>
@@ -89,7 +94,7 @@ export function ArticlesSection() {
               <CardContent className="flex flex-col items-start gap-6 p-0">
                 <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
                   {post.isExternal ? (
-                    <a className="self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-xl sm:text-2xl"
+                    <a className={`self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[${theme.colors.secondary}] text-xl sm:text-2xl`}
                       href={post.link}
                       rel="noopener noreferrer"
                       target="_blank"
@@ -97,11 +102,11 @@ export function ArticlesSection() {
                       {post.title}
                     </a>
                   ) : (
-                    <h2 className="self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-xl sm:text-2xl">
+                    <h2 className={`self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[${theme.colors.secondary}] text-xl sm:text-2xl`}>
                       {post.title}
                     </h2>
                   )}
-                  <p className="self-stretch text-sm sm:text-base text-[#475467] line-clamp-3">
+                  <p className={`self-stretch text-sm sm:text-base text-[${theme.colors.text}] line-clamp-3`}>
                     {post.content}
                   </p>
                 </div>
@@ -109,7 +114,7 @@ export function ArticlesSection() {
                 <Button
                   variant="link"
                   onClick={() => handleReadMore(post.link)}
-                  className="p-0 h-auto flex items-center gap-2 text-[#00359e] font-semibold hover:text-[#002a7a] transition-colors"
+                  className={`p-0 h-auto flex items-center gap-2 text-[${theme.colors.primary}] font-semibold hover:text-[${theme.colors.hover}] transition-colors`}
                 >
                   Read more
                   <ArrowUpRightIcon className="w-5 h-5" />
