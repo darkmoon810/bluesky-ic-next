@@ -1,0 +1,28 @@
+CREATE TABLE profiles (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name VARCHAR NOT NULL,
+  title VARCHAR NOT NULL,
+  bio TEXT[] NOT NULL,
+  image_url VARCHAR NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
+);
+
+CREATE TABLE contact_info (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  title VARCHAR NOT NULL,
+  content VARCHAR NOT NULL,
+  icon VARCHAR NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
+);
+
+CREATE TABLE insights (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  title VARCHAR NOT NULL,
+  content TEXT NOT NULL,
+  category VARCHAR NOT NULL,
+  date DATE NOT NULL DEFAULT CURRENT_DATE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW()),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc', NOW())
+);
