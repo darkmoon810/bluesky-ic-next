@@ -1,10 +1,15 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
+
+import { homeStatics } from "@/lib/Statics/home.static"
+import { theme } from "@/lib/Statics/theme.static"
+
+const { hero } = homeStatics
 
 const backgroundImages = [
   { src: "/image-1.png", alt: "City skyline" },
@@ -12,7 +17,7 @@ const backgroundImages = [
   { src: "/image-3.png", alt: "Financial district" },
 ] as const
 
-export function HeroSection() {
+export default function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const slideInterval = 5000
 
@@ -58,12 +63,10 @@ export function HeroSection() {
                 className="w-full md:w-[1000px] items-center gap-6 flex-[0_0_auto] flex flex-col"
               >
                 <h1 className="relative self-stretch mt-[-1.00px] [font-family:'DM_Serif_Text',Helvetica] font-normal text-white text-4xl md:text-[80px] text-center tracking-[-1.60px] leading-[1.1] md:leading-[90px]">
-                  Your financial future deserves more than a bank
+                  {hero.title}
                 </h1>
                 <p className="text-white text-lg md:text-xl text-center leading-[1.6] md:leading-[30px] relative max-w-[800px]">
-                  We believes that high-net-worth individuals and entrepreneurs
-                  deserve a level of service and expertise that goes beyond what
-                  traditional banks can offer.
+                  {hero.description}
                 </p>
               </motion.div>
 
@@ -94,7 +97,7 @@ export function HeroSection() {
               {backgroundImages.map((_, index) => (
                 <motion.div
                   key={index}
-                  className={`relative w-2 h-2 rounded-full cursor-pointer ${index === currentImageIndex ? 'bg-[#00359e]' : 'bg-[#eaecf0]'
+                  className={`relative w-2 h-2 rounded-full cursor-pointer ${index === currentImageIndex ? `bg-[${theme.colors.primary}]` : 'bg-[#eaecf0]'
                     }`}
                   onClick={() => setCurrentImageIndex(index)}
                   whileHover={{ scale: 1.2 }}

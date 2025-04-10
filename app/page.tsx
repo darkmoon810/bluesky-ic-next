@@ -1,8 +1,8 @@
-import { ArticlesSection } from "./Home/sections/ArticlesSection"
+import ArticlesSection from "./Home/sections/ArticlesSection"
 import CallToActionSection from "@/components/common/CallToActionSection"
 import CallToActionWrapperSection from "./Home/sections/CallToActionWrapperSection"
-import { HeroSection } from "./Home/sections/HeroSection/HeroSection"
-import { MainContentSection } from "./Home/sections/MainContentSection"
+import HeroSection from "./Home/sections/HeroSection/HeroSection"
+import MainContentSection from "./Home/sections/MainContentSection"
 import ServicesSection from "./Home/sections/ServicesSection"
 import ServicesWrapperSection from "./Home/sections/ServicesWrapperSection"
 export default function HomePage() {

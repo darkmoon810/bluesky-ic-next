@@ -1,3 +1,5 @@
+"use client"
+import { useState, useEffect } from "react";
 import { ArrowUpRightIcon } from "lucide-react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import {
@@ -7,72 +9,30 @@ import {
   PaginationItem,
   PaginationLink,
 } from "../../../../components/ui/pagination";
+
+import { BlogPost } from "@/types";
 import { Button } from "../../../../components/ui/button";
 
+import { getArticles } from "@/app/api/insights/route";
+
 export function ArticlesSection() {
-  // Blog post data for mapping
-  const blogPosts = [
-    {
-      id: 1,
-      image: "/image-3-1.png",
-      title:
-        "Why a Balanced Portfolio Strategy in the current economic environment is no longer appropriate?",
-      content:
-        "In the past a balanced portfolio typically meant to have roughly half of your holdings to be equity (stocks) and the other half to be fixed income (bonds). Some people use a 60/40 weighting, respectively.",
-      link: "https://blueskyic.com/why-a-balanced-portfolio-strategy-in-the-current-economic-environment-is-no-longer-appropriate/",
-      isExternal: true,
-    },
-    {
-      id: 2,
-      image: "/image-4-1.png",
-      title:
-        "Efficient investing for employees of the big four accounting firms",
-      content:
-        "Managing the accounting firm independence constraints: All the large accounting firms have stringent procedures when it comes to investing. This is mostly due tovarious scandals that happened in the past where audit clients' information",
-      link: "https://blueskyic.com/efficient-investing-for-employees-of-the-big-four-accounting-firms/",
-      isExternal: false,
-    },
-    {
-      id: 3,
-      image: "/image-8.png",
-      title:
-        "Learn how your multiple structures of savings accounts really work",
-      content:
-        "The government has created multiple structures to help Canadians save efficiently and have a retirement that relies less on full government programs such as the CPP",
-      link: "https://blueskyic.com/how-your-savings-accounts-really-work/",
-      isExternal: false,
-    },
-    {
-      id: 4,
-      image: "/image-4-1.png",
-      title:
-        "Efficient investing for employees of the big four accounting firms",
-      content:
-        "Managing the accounting firm independence constraints: All the large accounting firms have stringent procedures when it comes to investing. This is mostly due tovarious scandals that happened in the past where audit clients' information",
-      link: "https://blueskyic.com/efficient-investing-for-employees-of-the-big-four-accounting-firms/",
-      isExternal: false,
-    },
-    {
-      id: 5,
-      image: "/image-8.png",
-      title:
-        "Learn how your multiple structures of savings accounts really work",
-      content:
-        "The government has created multiple structures to help Canadians save efficiently and have a retirement that relies less on full government programs such as the CPP",
-      link: "https://blueskyic.com/how-your-savings-accounts-really-work/",
-      isExternal: false,
-    },
-    {
-      id: 6,
-      image: "/image-3-1.png",
-      title:
-        "Why a Balanced Portfolio Strategy in the current economic environment is no longer appropriate?",
-      content:
-        "In the past a balanced portfolio typically meant to have roughly half of your holdings to be equity (stocks) and the other half to be fixed income (bonds). Some people use a 60/40 weighting, respectively.",
-      link: "https://blueskyic.com/why-a-balanced-portfolio-strategy-in-the-current-economic-environment-is-no-longer-appropriate/",
-      isExternal: true,
-    },
-  ];
+
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  async function fetchInsights() {
+    try {
+      const response = await getArticles(new Request('/api/insights?limit=6'));
+      const data = await response.json();
+      setBlogPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching insights:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchInsights();
+  }, []);
 
   // Pagination data
   const paginationItems = [
@@ -100,14 +60,14 @@ export function ArticlesSection() {
                 <img
                   className="absolute w-full h-full top-0 left-0 object-cover"
                   alt="Blog post image"
-                  src={post.image}
+                  src={post.image_url}
                 />
               </div>
 
               {/* Content */}
               <CardContent className="flex flex-col items-start gap-6 p-0">
                 <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
-                  {post.isExternal ? (
+                  {post.is_external ? (
                     <a
                       className="self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-xl sm:text-2xl hover:text-[#00359e] transition-colors"
                       href={post.link}

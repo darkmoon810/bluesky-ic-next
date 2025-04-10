@@ -38,7 +38,7 @@ const features = [
   },
 ];
 
-export function MainContentSection () {
+export default function MainContentSection () {
   return (
     <section className="flex flex-col items-center gap-16 py-20 w-full bg-white">
       <div className="flex flex-wrap justify-center gap-[40px_64px] max-w-screen-xl px-8 w-full">

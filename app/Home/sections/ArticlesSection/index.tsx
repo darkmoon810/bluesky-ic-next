@@ -1,46 +1,42 @@
 "use client"
 
+import { useEffect, useState } from 'react'
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRightIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { homeStatics } from "@/lib/Statics/home.static"
+import { theme } from "@/lib/Statics/theme.static"
+import type { BlogPost } from "@/types"
 
-const blogPosts = [
-  {
-    id: 1,
-    image: "/image-3-1.png",
-    title:
-      "Why a Balanced Portfolio Strategy in the current economic environment is no longer appropriate?",
-    content:
-      "In the past a balanced portfolio typically meant to have roughly half of your holdings to be equity (stocks) and the other half to be fixed income (bonds). Some people use a 60/40 weighting, respectively.",
-    link: "https://blueskyic.com/why-a-balanced-portfolio-strategy-in-the-current-economic-environment-is-no-longer-appropriate/",
-    isExternal: true,
-  },
-  {
-    id: 2,
-    image: "/image-4-1.png",
-    title:
-      "Efficient investing for employees of the big four accounting firms",
-    content:
-      "Managing the accounting firm independence constraints: All the large accounting firms have stringent procedures when it comes to investing. This is mostly due tovarious scandals that happened in the past where audit clients' information",
-    link: "https://blueskyic.com/efficient-investing-for-employees-of-the-big-four-accounting-firms/",
-    isExternal: false,
-  },
-  {
-    id: 3,
-    image: "/image-8.png",
-    title:
-      "Learn how your multiple structures of savings accounts really work",
-    content:
-      "The government has created multiple structures to help Canadians save efficiently and have a retirement that relies less on full government programs such as the CPP",
-    link: "https://blueskyic.com/how-your-savings-accounts-really-work/",
-    isExternal: false,
-  },
-] as const
+import { getArticles } from '@/app/api/insights/route'
 
-export function ArticlesSection() {
-  const handleReadMore = (link: string) => {
+const { articles } = homeStatics
+
+interface ArticlesSectionProps {
+  insights: BlogPost[];
+}
+
+export default function ArticlesSection() {
+
+  const [insights, setInsights] = useState<BlogPost[]>([])
+
+  async function fetchInsights() {
+    try {
+      const response = await getArticles(new Request('/api/insights?limit=3'));
+      const data = await response.json();
+      setInsights(data || []);
+    } catch (error) {
+      console.error('Error fetching insights:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchInsights();
+  }, []);
+
+  const handleReadMore = (link: string): void => {
     window.open(link, '_blank', 'noopener,noreferrer')
   }
 
@@ -52,18 +48,18 @@ export function ArticlesSection() {
           <div className="flex flex-col items-start gap-3 flex-1">
             <div className="flex flex-col items-start gap-3 w-full">
               <h2 className="font-['DM_Serif_Text',Helvetica] text-5xl tracking-[-0.96px]">
-                <span className="text-[#101828]">Latest </span>
-                <span className="text-[#00359e]">news & articles</span>
+                <span className={`text-[${theme.colors.secondary}]`}>{articles.title.main} </span>
+                <span className={`text-[${theme.colors.primary}]`}>{articles.title.highlight}</span>
               </h2>
             </div>
-            <p className="self-stretch text-[#475467] text-xl leading-[30px]">
-              The latest news and resources from the expert
+            <p className={`self-stretch text-[${theme.colors.text}] text-xl leading-[30px]`}>
+              {articles.subtitle}
             </p>
           </div>
 
-          <Link href="/insights">
-            <Button className="bg-[#00359e] text-white rounded-lg shadow-shadows-shadow-xs">
-              View all
+          <Link href={articles.viewAllButton.link}>
+            <Button className={`bg-[${theme.colors.primary}] text-white rounded-lg shadow-shadows-shadow-xs`}>
+              {articles.viewAllButton.text}
             </Button>
           </Link>
         </div>
@@ -72,7 +68,7 @@ export function ArticlesSection() {
       {/* Articles Grid */}
       <div className="flex flex-col max-w-screen-xl items-start gap-8 px-8 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-          {blogPosts.map((post) => (
+          {insights.map((post: BlogPost) => (
             <Card
               key={post.id}
               className="flex flex-col w-full items-start gap-5 border-none shadow-none"
@@ -80,16 +76,17 @@ export function ArticlesSection() {
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
                 <Image
                   fill
-                  src={post.image}
-                  alt="Blog post image"
+                  src={post.image_url}
+                  alt={post.title}
                   className="object-cover"
                 />
               </div>
 
               <CardContent className="flex flex-col items-start gap-6 p-0">
                 <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
-                  {post.isExternal ? (
-                    <a className="self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-xl sm:text-2xl"
+                  {post.is_external ? (
+                    <a
+                      className={`self-stretch [font-family:${theme.fonts.serif}] font-normal text-[${theme.colors.secondary}] text-xl sm:text-2xl`}
                       href={post.link}
                       rel="noopener noreferrer"
                       target="_blank"
@@ -97,11 +94,11 @@ export function ArticlesSection() {
                       {post.title}
                     </a>
                   ) : (
-                    <h2 className="self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-xl sm:text-2xl">
+                    <h2 className={`self-stretch [font-family:${theme.fonts.serif}] font-normal text-[${theme.colors.secondary}] text-xl sm:text-2xl`}>
                       {post.title}
                     </h2>
                   )}
-                  <p className="self-stretch text-sm sm:text-base text-[#475467] line-clamp-3">
+                  <p className={`self-stretch text-sm sm:text-base text-[${theme.colors.text}] line-clamp-3`}>
                     {post.content}
                   </p>
                 </div>
@@ -109,7 +106,7 @@ export function ArticlesSection() {
                 <Button
                   variant="link"
                   onClick={() => handleReadMore(post.link)}
-                  className="p-0 h-auto flex items-center gap-2 text-[#00359e] font-semibold hover:text-[#002a7a] transition-colors"
+                  className={`p-0 h-auto flex items-center gap-2 text-[${theme.colors.primary}] font-semibold hover:text-[${theme.colors.hover}] transition-colors`}
                 >
                   Read more
                   <ArrowUpRightIcon className="w-5 h-5" />
