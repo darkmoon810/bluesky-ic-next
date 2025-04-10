@@ -52,8 +52,8 @@ export function ThemePanel() {
   }
 
   return (
-    <div className="space-y-6 p-6">
-      <h1 className="text-3xl font-bold">Theme Management</h1>
+    <div className="space-y-6">
+      <h1 className="text-2xl font-bold">Theme Management</h1>
 
       <Tabs defaultValue="colors">
         <TabsList>

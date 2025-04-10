@@ -42,7 +42,7 @@ export default function ContactInfoSection() {
               className="flex flex-col items-center gap-4 relative border-none shadow-none"
             >
               <CardContent className="flex flex-col items-center gap-4 p-0">
-                <div className="relative w-16 h-16 bg-[#f5f8ff] rounded-[228.57px] shadow-[0px_1.33px_2.67px_#1018280d] flex items-center justify-center">
+                <div className="relative w-16 h-16 bg-[#00359e] rounded-[228.57px] shadow-[0px_1.33px_2.67px_#1018280d] flex items-center justify-center">
                   <img
                     className="w-8 h-8"
                     alt={info.title}
