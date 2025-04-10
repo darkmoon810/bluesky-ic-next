@@ -8,7 +8,14 @@ import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
 
 export default function InsightsAdmin() {
-  const [insights, setInsights] = useState([])
+  interface Insight {
+    id: string;
+    title: string;
+    content: string;
+    category: string;
+    date: string;
+  }
+  const [insights, setInsights] = useState<Insight[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [newInsight, setNewInsight] = useState({
@@ -29,10 +36,15 @@ export default function InsightsAdmin() {
       
       if (!response.ok) {
         const errorData = await response.json()
+          .catch(() => ({ error: 'Failed to fetch insights' }))
         throw new Error(errorData.error || 'Failed to fetch insights')
       }
       
       const data = await response.json()
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid data format')
+      }
+      
       setInsights(data)
     } catch (error) {
       console.error('Error fetching insights:', error)
