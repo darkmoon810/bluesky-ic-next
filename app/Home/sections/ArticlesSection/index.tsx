@@ -1,6 +1,8 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRightIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -38,11 +40,27 @@ const blogPosts = [
 ] as const
 
 export function ArticlesSection() {
+  const handleReadMore = (link: string) => {
+    window.open(link, '_blank', 'noopener,noreferrer')
+  }
+
   return (
     <section className="flex flex-col items-center gap-16 py-20 w-full bg-white">
+      {/* Header Section */}
       <div className="flex flex-col max-w-screen-xl items-start gap-8 px-8 w-full">
         <div className="flex flex-wrap items-start justify-between gap-[32px_32px] w-full">
-          {/* ...existing header content... */}
+          <div className="flex flex-col items-start gap-3 flex-1">
+            <div className="flex flex-col items-start gap-3 w-full">
+              <h2 className="font-['DM_Serif_Text',Helvetica] text-5xl tracking-[-0.96px]">
+                <span className="text-[#101828]">Latest </span>
+                <span className="text-[#00359e]">news & articles</span>
+              </h2>
+            </div>
+            <p className="self-stretch text-[#475467] text-xl leading-[30px]">
+              The latest news and resources from the expert
+            </p>
+          </div>
+
           <Link href="/insights">
             <Button className="bg-[#00359e] text-white rounded-lg shadow-shadows-shadow-xs">
               View all
@@ -51,24 +69,55 @@ export function ArticlesSection() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-screen-xl px-8">
-        {blogPosts.map((post) => (
-          <Card
-            key={post.id}
-            className="flex flex-col w-full items-start gap-5 border-none shadow-none"
-          >
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
-              <Image
-                src={post.image}
-                alt="Blog post image"
-                fill
-                className="object-cover"
-              />
-            </div>
+      {/* Articles Grid */}
+      <div className="flex flex-col max-w-screen-xl items-start gap-8 px-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+          {blogPosts.map((post) => (
+            <Card
+              key={post.id}
+              className="flex flex-col w-full items-start gap-5 border-none shadow-none"
+            >
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  fill
+                  src={post.image}
+                  alt="Blog post image"
+                  className="object-cover"
+                />
+              </div>
 
-            {/* ...rest of card content... */}
-          </Card>
-        ))}
+              <CardContent className="flex flex-col items-start gap-6 p-0">
+                <div className="flex flex-col items-start gap-2 relative self-stretch w-full">
+                  {post.isExternal ? (
+                    <a className="self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-xl sm:text-2xl"
+                      href={post.link}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {post.title}
+                    </a>
+                  ) : (
+                    <h2 className="self-stretch [font-family:'DM_Serif_Text',Helvetica] font-normal text-[#101828] text-xl sm:text-2xl">
+                      {post.title}
+                    </h2>
+                  )}
+                  <p className="self-stretch text-sm sm:text-base text-[#475467] line-clamp-3">
+                    {post.content}
+                  </p>
+                </div>
+
+                <Button
+                  variant="link"
+                  onClick={() => handleReadMore(post.link)}
+                  className="p-0 h-auto flex items-center gap-2 text-[#00359e] font-semibold hover:text-[#002a7a] transition-colors"
+                >
+                  Read more
+                  <ArrowUpRightIcon className="w-5 h-5" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </section>
   )

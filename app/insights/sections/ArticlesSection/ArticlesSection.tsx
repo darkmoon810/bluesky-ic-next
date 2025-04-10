@@ -9,7 +9,7 @@ import {
 } from "../../../../components/ui/pagination";
 import { Button } from "../../../../components/ui/button";
 
-export const ArticlesSection = (): JSX.Element => {
+export function ArticlesSection() {
   // Blog post data for mapping
   const blogPosts = [
     {
