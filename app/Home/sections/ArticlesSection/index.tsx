@@ -43,7 +43,7 @@ export function ArticlesSection() {
       <div className="flex flex-col max-w-screen-xl items-start gap-8 px-8 w-full">
         <div className="flex flex-wrap items-start justify-between gap-[32px_32px] w-full">
           {/* ...existing header content... */}
-          <Link href="/insight">
+          <Link href="/insights">
             <Button className="bg-[#00359e] text-white rounded-lg shadow-shadows-shadow-xs">
               View all
             </Button>

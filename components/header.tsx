@@ -161,7 +161,7 @@ export default function Header() {
                     )}
                   </div>
                 ))}
-                <Button className="w-full bg-[#00359e] text-white rounded-lg hover:bg-[#002a7a] transition-colors mt-4">
+                <Button className="w-full bg-[#00359e] text-white rounded-lg hover:bg-[#002a7a] transition-colors mt-4" onClick={() => { window.location.href = "https://f-engine.ndexsystems.com/fengine/fullservice/en/blueskyinvestmentlogin.go" }}>
                   Client Login
                 </Button>
               </div>
