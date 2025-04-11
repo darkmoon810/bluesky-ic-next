@@ -1,7 +1,7 @@
 export const homeStatics = {
   hero: {
     title: "Your financial future deserves more than a bank",
-    description: "We believes that high-net-worth individuals and entrepreneurs deserve a level of service and expertise that goes beyond what traditional banks can offer."
+    description: "We believe that high-net-worth individuals and entrepreneurs deserve a level of service and expertise that goes beyond what traditional banks can offer."
   },
   articles: {
     title: {

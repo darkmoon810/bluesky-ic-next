@@ -19,7 +19,7 @@ export default function ServicesWrapperSection() {
           </div>
           <div className="flex flex-col flex-1">
             <p className="text-[#475467] text-md leading-6">
-              Banks and other financial institutes may offer generic solutions
+              Banks and other financial institutions may offer generic solutions
               that may not fully align with your unique financial situation. At
               BlueSky Investment Counsel, we take the time to understand your
               individual needs, goals, and risk tolerance.

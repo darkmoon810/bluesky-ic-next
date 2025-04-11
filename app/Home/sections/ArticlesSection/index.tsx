@@ -50,7 +50,7 @@ export default function ArticlesSection() {
         <div className="flex flex-wrap items-start justify-between gap-[32px_32px] w-full">
           <div className="flex flex-col items-start gap-3 flex-1">
             <div className="flex flex-col items-start gap-3 w-full">
-              <h2 className={`[font-family:${theme.fonts.serif}] text-5xl tracking-[-0.96px]`}>
+              <h2 className="[font-family:'DM_Serif_Text',Helvetica] text-5xl tracking-[-0.96px]">
                 <span className={`text-[${theme.colors.secondary}]`}>{articles.title.main} </span>
                 <span className={`text-[${theme.colors.primary}]`}>{articles.title.highlight}</span>
               </h2>

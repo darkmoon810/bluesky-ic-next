@@ -19,7 +19,7 @@ const services = [
   {
     icon: <Coins className="h-8 w-8" />,
     titleDark: "Investing",
-    titleBlue: "Responsibly ",
+    titleBlue: "Responsible ",
     description:
       "We invest in ethically and socially responsible companies, balancing performance, risk management, and positive impact on the environment and community.",
   },
