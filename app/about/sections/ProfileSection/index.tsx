@@ -5,7 +5,7 @@ const { profile } = aboutStatics
 
 export default function ProfileSection() {
   return (
-    <div className="flex flex-col items-center bg-background py-20">
+    <div className="flex flex-col items-center bg-background py-20 m-auto">
       <div className="flex flex-col lg:flex-row items-center max-w-screen-xl px-4 sm:px-8 gap-8 lg:gap-16">
         <div className="flex flex-col items-start gap-8 w-full lg:w-1/2">
           <div className="space-y-2">

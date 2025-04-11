@@ -1,7 +1,7 @@
 export const aboutStatics = {
   hero: {
     title: "BlueSky Investment Counsel is a private wealth management company",
-    description: "We believes that high-net-worth individuals and entrepreneurs deserve a level of service and expertise that goes beyond what traditional banks can offer."
+    description: "We believe that high-net-worth individuals and entrepreneurs deserve a level of service and expertise that goes beyond what traditional banks can offer."
   },
   profile: {
     name: "Jean-Pierre Berger, CIM",

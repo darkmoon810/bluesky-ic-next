@@ -11,7 +11,7 @@ export default function CallToActionSection() {
             <CardContent className="flex flex-col lg:flex-row items-center justify-between w-full p-0 gap-8">
               <div className="flex flex-col items-start gap-2 relative flex-1 grow">
                 <h2 className="relative self-stretch mt-[-1.00px] [font-family:'DM_Serif_Text',Helvetica] font-normal text-white text-3xl md:text-[40px] tracking-[0] leading-[normal] text-center lg:text-left">
-                  We Commited to Your Success
+                  We are Committed to Your Success
                 </h2>
                 <p className="self-stretch opacity-80 text-white text-lg md:text-xl text-center lg:text-left">
                   Our personalized approach and comprehensive services ensure
