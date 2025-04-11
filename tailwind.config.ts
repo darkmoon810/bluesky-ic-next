@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import { themeConfig } from './lib/theme/theme.config'
 
 const config = {
   darkMode: ["class"],
@@ -23,16 +24,10 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: themeConfig.colors.background,
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
+        primary: themeConfig.colors.primary,
+        secondary: themeConfig.colors.secondary,
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -53,11 +48,17 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        text: themeConfig.colors.text,
+        'background-accent': themeConfig.colors.backgroundAccent,
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        serif: ['var(--font-dm-serif)'],
+        sans: ['var(--font-inter)'],
       },
       keyframes: {
         "accordion-down": {
