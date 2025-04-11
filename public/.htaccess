@@ -1,6 +1,9 @@
 # Enable rewrite engine
 RewriteEngine On
 
+# Set base directory
+RewriteBase /
+
 # Force HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
@@ -9,10 +12,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-# Handle Next.js static files
+# Handle Next.js static export routing
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/api/
 RewriteRule ^(.*)$ /$1.html [L]
 
 # Enable SPA routing
@@ -20,12 +22,34 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.html [QSA,L]
 
+# Handle 404 errors
+ErrorDocument 404 /404.html
+
+# Handle 500 errors
+ErrorDocument 500 /500.html
+
 # Security headers
-Header set X-Content-Type-Options "nosniff"
-Header set X-Frame-Options "SAMEORIGIN"
-Header set X-XSS-Protection "1; mode=block"
-Header set Referrer-Policy "strict-origin-when-cross-origin"
-Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set X-Download-Options "noopen"
+    Header set X-Permitted-Cross-Domain-Policies "none"
+    Header set X-Content-Security-Policy "default-src 'self'"
+</IfModule>
+
+# Browser caching for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
 
 # Enable compression
 <IfModule mod_deflate.c>
@@ -40,21 +64,11 @@ Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
     AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 
-# Set cache control
-<FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif|webp|svg|js|css|swf)$">
-    Header set Cache-Control "max-age=31536000, public"
-</FilesMatch>
-
 # Prevent directory listing
 Options -Indexes
 
-# Protect against common vulnerabilities
-<IfModule mod_headers.c>
-    Header set X-Download-Options "noopen"
-    Header set X-Permitted-Cross-Domain-Policies "none"
-    Header set X-Content-Security-Policy "default-src 'self'"
-</IfModule>
-
-# Custom error pages
-ErrorDocument 404 /404.html
-ErrorDocument 500 /500.html
+# Block access to sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
